@@ -31,33 +31,51 @@ impl<T> List<T> {
         })
     }
 
+    pub fn get_by_idx(&self, index: usize) -> Option<&T> {
+        // My Implementation
+        // let mut l = &self.head;
+        // let mut i = index;
+        // while i > 0 {
+        //     if l.is_some() {
+        //         l = &l.as_ref().unwrap().next;
+        //     }
+        //     i -= 1;
+        // }
+        // if l.is_some()
+        // {
+        //     return Some(&l.as_ref().unwrap().elem);
+        // }
+        // return None
+        // WorksButNotTested Implementation
+        let mut cur = &self.head;
+        for _ in 0..index {
+            if let Some(x) = cur {
+                cur = &x.next
+            }
+        }
+        cur.as_ref().map(|x|&x.elem)
+    }
+
     pub fn peek(&self) -> Option<&T> {
         self.head.as_ref().map(|node| {
             &node.elem
         })
     }
 
-    pub fn get_by_idx(&self, index: i32) -> Option<&T> {
-        // TODO; how to implement this?
-        // let mut l = &mut self.head;
-        // let mut i = index;
-        // while i > 0 {
-        //     if l.is_some() {
-        //         l = &mut l.unwrap().next;
-        //     }
-        //     i -= 1;
-        // }
-        // if l.is_some()
-        // {
-        //     return Some(&l.unwrap().elem);
-        // }
-        return None
-    }
-
     pub fn peek_mut(&mut self) -> Option<&mut T> {
         self.head.as_mut().map(|node| {
             &mut node.elem
         })
+    }
+
+    pub fn get_by_idx_mut(&mut self, index: usize) -> Option<&mut T> {
+        let mut cur = &mut self.head;
+        for _ in 0..index {
+            if let Some(x) = cur {
+                cur = &mut x.next
+            }
+        }
+        cur.as_mut().map(|x|&mut x.elem)
     }
 
 }
